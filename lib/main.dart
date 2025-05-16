@@ -72,7 +72,7 @@ class _ApiTestPageState extends State<ApiTestPage> {
 
     try {
       // Login data
-      final loginData = {'email': 'admin@admin.com', 'password': ''};
+      final loginData = {'email': 'admin@admin.com', 'password': 'password'};
 
       // Post request to login endpoint
       final response = await _dioClient.post(ApiUrls.login, data: loginData);
@@ -98,7 +98,7 @@ class _ApiTestPageState extends State<ApiTestPage> {
 
     try {
       // Login data
-      final loginData = {'email': 'admin@admin.com', 'password': ''};
+      final loginData = {'email': 'admin@admin.com', 'password': 'password'};
 
       // Print detailed info for debugging
       print('HTTP Request URL: ${ApiUrls.login}');
