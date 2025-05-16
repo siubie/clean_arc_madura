@@ -7,7 +7,10 @@ class DioClient {
   DioClient()
     : _dio = Dio(
         BaseOptions(
-          headers: {'Content-Type': 'application/json; charset=UTF-8'},
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Accept': 'application/json',
+          },
           responseType: ResponseType.json,
           sendTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
