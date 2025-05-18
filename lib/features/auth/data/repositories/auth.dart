@@ -1,5 +1,6 @@
 import 'package:clean_arc_madura/features/auth/data/datasources/auth_api_service.dart';
-import 'package:clean_arc_madura/features/auth/data/models/singin_request.dart';
+import 'package:clean_arc_madura/features/auth/data/models/login_request.dart';
+import 'package:clean_arc_madura/features/auth/data/models/register_request.dart';
 import 'package:clean_arc_madura/features/auth/domain/repositories/auth.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -19,13 +20,13 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<void> register(String username, String password) {
+  Future<void> register(RegisterRequest request) {
     // TODO: implement register
     throw UnimplementedError();
   }
 
   @override
-  Future<Either> login(SinginRequest request) async {
+  Future<Either> login(LoginRequest request) async {
     Either result = await AuthApiServiceImpl().login(request);
     return result.fold(
       (error) {
