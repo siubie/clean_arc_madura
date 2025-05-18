@@ -1,10 +1,11 @@
+import 'package:clean_arc_madura/features/auth/presentation/pages/login.dart';
 import 'package:clean_arc_madura/service_locator.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'core/network/dio_client.dart';
 import 'core/constants/api_urls.dart';
-import 'features/auth/presentation/pages/login.dart';
 
 void main() {
   setupServiceLocator();
@@ -20,81 +21,8 @@ class MyApp extends StatelessWidget {
       title: 'Toko Madura',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
       ),
-      home: const HomePage(),
-      routes: {
-        '/login': (context) => const LoginPage(),
-        '/api_test': (context) => const ApiTestPage(title: 'API Testing'),
-      },
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Toko Madura'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.store, size: 100, color: Colors.deepPurple),
-              const SizedBox(height: 24),
-              const Text(
-                'Welcome to Toko Madura',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 48),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurple,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 16,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Text('Login', style: TextStyle(fontSize: 18)),
-              ),
-              const SizedBox(height: 16),
-              OutlinedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/api_test');
-                },
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 16,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Text(
-                  'API Testing',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      home: const LoginPage(),
     );
   }
 }
@@ -222,8 +150,10 @@ class _ApiTestPageState extends State<ApiTestPage> {
         'author': 'API Tester',
       };
 
+      // Convert to FormData for Dio
+      final formData = FormData.fromMap(bookData);
       // Post request to create a book
-      final response = await _dioClient.post(ApiUrls.book, data: bookData);
+      final response = await _dioClient.post(ApiUrls.book);
 
       setState(() {
         _isCreateBookLoading = false;
